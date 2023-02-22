@@ -1,0 +1,12 @@
+FROM quay.io/almalinux/almalinux:9
+
+RUN dnf install -y systemd procps-ng iproute util-linux python3 sudo epel-release hostname dnf-plugins-core \
+    && dnf config-manager --set-enabled crb -y \
+    && dnf clean all \
+    && rm -rf /var/cache/dnf/*
+
+RUN truncate -s0 /etc/machine-id
+
+STOPSIGNAL SIGRTMIN+3
+
+CMD [ "/sbin/init" ]

@@ -1,0 +1,11 @@
+FROM quay.io/fedora/fedora:37
+
+RUN dnf install -y systemd procps-ng iproute util-linux python3 sudo hostname \
+    && dnf clean all \
+    && rm -rf /var/cache/dnf/*
+
+RUN truncate -s0 /etc/machine-id
+
+STOPSIGNAL SIGRTMIN+3
+
+CMD [ "/sbin/init" ]

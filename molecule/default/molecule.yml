@@ -1,0 +1,50 @@
+---
+dependency:
+  name: galaxy
+  options:
+    requirements-file: molecule/requirements.yml
+driver:
+  name: podman
+platforms:
+  - name: fedora37
+    image: fedora:37-ansible
+    dockerfile: ../Dockerfile.fedora37
+    command: /sbin/init
+    systemd: always
+  - name: el9
+    image: almalinux:9-ansible
+    dockerfile: ../Dockerfile.el9
+    command: /sbin/init
+    systemd: always
+  - name: el8
+    image: almalinux:8-ansible
+    dockerfile: ../Dockerfile.el8
+    command: /sbin/init
+    systemd: always
+  - name: ubuntu2204
+    image: ubuntu:22-04-ansible
+    dockerfile: ../Dockerfile.ubuntu2204
+    command: /sbin/init
+    systemd: always
+  - name: debian11
+    image: debian:11-ansible
+    dockerfile: ../Dockerfile.debian11
+    command: /sbin/init
+    systemd: always
+provisioner:
+  name: ansible
+  config_options:
+    defaults:
+      callbacks_enabled: profile_tasks, timer, yaml
+  ssh_connection:
+    pipelining: true
+  inventory:
+    links:
+      group_vars: inventory/group_vars/
+      host_vars: inventory/host_vars/
+verifier:
+  name: ansible
+lint: |
+    set -e
+    yamllint .
+    ansible-lint .

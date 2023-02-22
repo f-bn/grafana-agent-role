@@ -1,0 +1,14 @@
+FROM public.ecr.aws/debian/debian:11
+
+RUN set -ex ; \
+    export DEBIAN_FRONTEND=noninteractive; \
+    apt update ; \
+    apt install -y systemd systemd-sysv iproute2 python3 sudo hostname procps ca-certificates gnupg ; \
+    apt clean all ; \
+    rm -rf /var/lib/apt/lists/* ;
+
+RUN truncate -s0 /etc/machine-id
+
+STOPSIGNAL SIGRTMIN+3
+
+CMD [ "/sbin/init" ]
