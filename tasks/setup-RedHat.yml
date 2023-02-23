@@ -1,0 +1,10 @@
+---
+- name: Ensure Grafana RPM repository is configured
+  ansible.builtin.yum_repository:
+    name: grafana
+    description: "Grafana RPM repository"
+    baseurl: https://rpm.grafana.com
+    enabled: true
+    repo_gpgcheck: true
+    gpgcheck: true
+    gpgkey: https://rpm.grafana.com/gpg.key

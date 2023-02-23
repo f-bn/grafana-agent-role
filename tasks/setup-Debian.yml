@@ -1,0 +1,21 @@
+---
+- name: Ensure role dependencies are installed
+  ansible.builtin.apt:
+    name:
+      - gnupg
+      - ca-certificates
+      - python3-apt
+    state: present
+
+- name: Ensure Grafana APT repository GPG key is imported
+  ansible.builtin.apt_key:
+    url: https://apt.grafana.com/gpg.key
+    keyring: /etc/apt/trusted.gpg.d/grafana.gpg
+    state: present
+
+- name: Ensure Grafana APT repository is configured
+  ansible.builtin.apt_repository:
+    repo: 'deb [signed-by=/etc/apt/trusted.gpg.d/grafana.gpg] https://apt.grafana.com stable main'
+    filename: grafana
+    state: present
+    update_cache: true

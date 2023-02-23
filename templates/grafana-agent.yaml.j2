@@ -1,0 +1,18 @@
+# Managed by Ansible
+# For a full configuration reference, see: https://grafana.com/docs/agent/latest/configuration/.
+
+# - Server -
+server:
+  {{ grafana_agent_server_config | to_nice_yaml(indent=2,sort_keys=False) | indent(2,false) }}
+
+# - Metrics -
+metrics:
+  {{ grafana_agent_metrics_config | to_nice_yaml(indent=2,sort_keys=False) | indent(2,false) }}
+
+# - Logs -
+
+# - Tracing -
+
+# - Integrations -
+integrations:
+  {{ grafana_agent_integrations_config | to_nice_yaml(indent=2,sort_keys=False) | indent(2,false) }}

@@ -3,6 +3,21 @@
   hosts: all
   gather_facts: false
   tasks:
-  - name: Example assertion
-    ansible.builtin.assert:
-      that: true
+    - name: Retrieve system services status
+      ansible.builtin.service_facts:
+
+    - name: Check if Prometheus service is enabled and running
+      ansible.builtin.assert:
+        that:
+          - services["grafana-agent.service"]["state"] == "running"
+          - services["grafana-agent.service"]["status"] == "enabled"
+
+    - name: Check if Grafana Agent healthiness endpoint is listening
+      ansible.builtin.uri:
+        url: "http://127.0.0.1:9090/-/healthy"
+        method: GET
+        return_content: true
+      register: _result
+      until: '"Agent is Healthy" in _result.content'
+      retries: 12
+      delay: 5

@@ -1,0 +1,3 @@
+---
+grafana_agent_package: "grafana-agent={{ grafana_agent_version }}-1"
+grafana_agent_env_file: /etc/default/grafana-agent

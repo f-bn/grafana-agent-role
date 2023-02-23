@@ -1,2 +1,46 @@
 ---
-# defaults file for ansible-role-template
+# -----------------------------------------------------------------------------
+# GENERAL
+# -----------------------------------------------------------------------------
+grafana_agent_version: '0.31.3'
+
+grafana_agent_config_dir: /etc/grafana-agent
+grafana_agent_config_path: "{{ grafana_agent_config_dir }}/config.yaml"
+grafana_agent_wal_dir: /var/lib/grafana-agent
+
+grafana_agent_custom_args: []
+grafana_agent_custom_env: []
+grafana_agent_restart_on_upgrade: false
+
+# -----------------------------------------------------------------------------
+# SERVER
+# -----------------------------------------------------------------------------
+grafana_agent_server_config:
+  log_level: info
+grafana_agent_server_http_address: '127.0.0.1:9090'
+grafana_agent_server_grpc_address: '127.0.0.1:9091'
+
+# -----------------------------------------------------------------------------
+# METRICS
+# -----------------------------------------------------------------------------
+grafana_agent_metrics_config:
+  global:
+    scrape_interval: 1m
+  wal_directory: "{{ grafana_agent_wal_dir }}"
+
+# -----------------------------------------------------------------------------
+# LOGS
+# -----------------------------------------------------------------------------
+# grafana_agent_logs_config: {}
+
+# -----------------------------------------------------------------------------
+# TRACING
+# -----------------------------------------------------------------------------
+# grafana_agent_tracing_config: {}
+
+# -----------------------------------------------------------------------------
+# INTEGRATIONS
+# -----------------------------------------------------------------------------
+grafana_agent_integrations_config:
+  agent:
+    enabled: true

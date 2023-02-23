@@ -1,0 +1,29 @@
+# Managed by Ansible
+
+[Unit]
+Description=Monitoring system and forwarder
+Documentation=https://grafana.com/docs/agent/latest/
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=grafana-agent
+Group=grafana-agent
+WorkingDirectory=/var/lib/grafana-agent
+EnvironmentFile={{ grafana_agent_env_file }}
+ExecStart=/usr/bin/grafana-agent \
+  --config.file={{ grafana_agent_config_path }} \
+  --server.http.address={{ grafana_agent_server_http_address }} \
+  --server.grpc.address={{ grafana_agent_server_grpc_address }} \
+  $CUSTOM_ARGS
+ExecReload=/usr/bin/kill -HUP $MAINPID
+# If running the Agent in scraping service mode, you will want to override this value with
+# something larger to allow the Agent to gracefully leave the cluster. 4800s is recommend.
+TimeoutStopSec=20s
+Restart=on-failure
+RestartSec=5
+SendSIGKILL=no
+
+[Install]
+WantedBy=multi-user.target

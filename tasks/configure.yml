@@ -1,0 +1,33 @@
+---
+- name: Ensure Grafana Agent directories are created
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    state: directory
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    mode: "{{ item.mode }}"
+  with_items:
+  - { path: "{{ grafana_agent_wal_dir }}", owner: grafana-agent, group: grafana-agent, mode: '0770' }
+  - { path: "{{ grafana_agent_config_dir }}", owner: root, group: grafana-agent, mode: '0750' }
+
+- name: Ensure default Grafana Agent configuration file is deleted
+  ansible.builtin.file:
+    path: /etc/grafana-agent.yaml
+    state: absent
+
+- name: Ensure Grafana Agent configuration is applied
+  ansible.builtin.template:
+    src: grafana-agent.yaml.j2
+    dest: "{{ grafana_agent_config_path }}"
+    owner: root
+    group: grafana-agent
+    mode: '0640'
+  notify: Reload Grafana Agent
+
+- name: Ensure Grafana Agent custom environment variables file exists
+  ansible.builtin.template:
+    src: env.j2
+    dest: "{{ grafana_agent_env_file }}"
+    owner: root
+    group: root
+    mode: '0644'

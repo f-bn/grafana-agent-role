@@ -1,0 +1,16 @@
+---
+- name: Ensure Grafana Agent user group exists
+  ansible.builtin.group:
+    name: grafana-agent
+    state: present
+
+- name: Ensure Grafana Agent user account exists
+  ansible.builtin.user:
+    name: grafana-agent
+    group: grafana-agent
+    groups: ['systemd-journal', 'adm']
+    shell: /usr/sbin/nologin
+    comment: "Grafana Agent user"
+    home: /var/lib/grafana-agent
+    system: true
+    state: present

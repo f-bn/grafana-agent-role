@@ -1,2 +1,25 @@
 ---
-# tasks file for ansible-role-template
+- name: Include OS-specific variables
+  ansible.builtin.include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+    - "{{ ansible_distribution }}.yml"
+    - "{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml"
+    - "{{ ansible_os_family }}.yml"
+
+- name: Pre-installation system tasks
+  ansible.builtin.import_tasks: system.yml
+
+- name: OS-specific tasks
+  ansible.builtin.include_tasks: "setup-{{ ansible_os_family }}.yml"
+
+- name: Install Grafana Agent
+  ansible.builtin.package:
+    name: "{{ grafana_agent_package }}"
+    state: present
+
+- name: Configure Grafana Agent
+  ansible.builtin.import_tasks: configure.yml
+
+- name: Manage Grafana Agent service
+  ansible.builtin.import_tasks: service.yml

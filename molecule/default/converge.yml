@@ -4,4 +4,4 @@
   tasks:
     - name: Deploy
       ansible.builtin.include_role:
-        name: ansible_role_template
+        name: grafana_agent
