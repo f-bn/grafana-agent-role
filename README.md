@@ -14,6 +14,13 @@ This Ansible role is designed to deploy and configure the Grafana Agent on targe
   - [Examples](#examples)
   - [Install and use this role](#install-and-use-this-role)
 
+**Supported Platforms**
+
+  - Red Hat Enterprise Linux 8.x/9.x
+  - Fedora 37
+  - Ubuntu 22.04 *Jammy Jellyfish*
+  - Debian 11 *Bullseye*
+
 **References**
 
   - Grafana Agent : https://github.com/grafana/agent
