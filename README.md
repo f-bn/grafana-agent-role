@@ -4,6 +4,8 @@
 
 ### General informations
 
+***Work in-progress***
+
 This Ansible role is designed to deploy and configure the Grafana Agent on target server(s).
 
 **Table of Contents**
