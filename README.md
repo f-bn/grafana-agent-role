@@ -39,7 +39,12 @@ This Ansible role is designed to deploy and configure the Grafana Agent on targe
 | `grafana_agent_server_config`     | see [defaults](defaults/main.yml)| Defines the Grafana Agent server configuration               |
 | `grafana_agent_server_http_address`| `127.0.0.1:9090`            | Defines the Grafana Agent listen HTTP address                    |
 | `grafana_agent_server_grpc_address`| `127.0.0.1:9091`            | Defines the Grafana Agent listen GRPC address                    |
-| `grafana_agent_metrics_config`     | see [defaults](defaults/main.yml)| Defines the Grafana Agent metrics configuration             |
+| `grafana_agent_metrics_enabled`    | `true`                      | If set to `true`, enable Grafana Agent metrics scraping configuration |
+| `grafana_agent_metrics_config`     | see [defaults](defaults/main.yml)| Defines the Grafana Agent metrics scraping configuration    |
+| `grafana_agent_logs_enabled`       | `false`                     | If set to `true`, enable Grafana Agent logs scraping configuration |
+| `grafana_agent_logs_config`        | see [defaults](defaults/main.yml)| Defines the Grafana Agent logs configuration                |
+| `grafana_agent_tracing_enabled`    | `false`                     | If set to `true`, enable Grafana Agent tracing scraping configuration |
+| `grafana_agent_tracing_config`     | see [defaults](defaults/main.yml)| Defines the Grafana Agent tracing configuration             |
 | `grafana_agent_integrations_config`| see [defaults](defaults/main.yml)| Defines the Grafana Agent integrations configurations       |
 
 ### Examples

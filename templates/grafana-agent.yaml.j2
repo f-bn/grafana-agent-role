@@ -5,13 +5,23 @@
 server:
   {{ grafana_agent_server_config | to_nice_yaml(indent=2,sort_keys=False) | indent(2,false) }}
 
+{% if grafana_agent_metrics_enabled -%}
 # - Metrics -
 metrics:
   {{ grafana_agent_metrics_config | to_nice_yaml(indent=2,sort_keys=False) | indent(2,false) }}
+{% endif %}
 
+{% if grafana_agent_logs_enabled -%}
 # - Logs -
+logs:
+  {{ grafana_agent_logs_config | to_nice_yaml(indent=2,sort_keys=False) | indent(2,false) }}
+{% endif %}
 
+{% if grafana_agent_tracing_enabled -%}
 # - Tracing -
+tracing:
+  {{ grafana_agent_tracing_config | to_nice_yaml(indent=2,sort_keys=False) | indent(2,false) }}
+{% endif %}
 
 # - Integrations -
 integrations:

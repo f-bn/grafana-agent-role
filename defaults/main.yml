@@ -23,6 +23,7 @@ grafana_agent_server_grpc_address: '127.0.0.1:9091'
 # -----------------------------------------------------------------------------
 # METRICS
 # -----------------------------------------------------------------------------
+grafana_agent_metrics_enabled: true
 grafana_agent_metrics_config:
   global:
     scrape_interval: 1m
@@ -31,12 +32,14 @@ grafana_agent_metrics_config:
 # -----------------------------------------------------------------------------
 # LOGS
 # -----------------------------------------------------------------------------
-# grafana_agent_logs_config: {}
+grafana_agent_logs_enabled: false
+grafana_agent_logs_config: {}
 
 # -----------------------------------------------------------------------------
 # TRACING
 # -----------------------------------------------------------------------------
-# grafana_agent_tracing_config: {}
+grafana_agent_tracing_enabled: false
+grafana_agent_tracing_config: {}
 
 # -----------------------------------------------------------------------------
 # INTEGRATIONS
